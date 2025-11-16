@@ -1,3 +1,11 @@
+setInterval(() => {
+  fetch("https://porfolio-backend-rx98.onrender.com");
+}, 5 * 60 * 1000);
+
+
+
+
+
 // Theme Toggle Functionality
 const themeToggle = document.getElementById('theme-toggle');
 const body = document.body;
