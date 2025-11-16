@@ -157,10 +157,52 @@ if (skillsSection) {
     skillsObserver.observe(skillsSection);
 }
 
+// // Contact Form Handling
+// const contactForm = document.getElementById('contact-form');
+// if (contactForm) {
+//     contactForm.addEventListener('submit', (e) => {
+//         e.preventDefault();
+        
+//         // Get form data
+//         const formData = new FormData(contactForm);
+//         const name = formData.get('name');
+//         const email = formData.get('email');
+//         const subject = formData.get('subject');
+//         const message = formData.get('message');
+        
+//         // Simple form validation
+//         if (!name || !email || !subject || !message) {
+//             showNotification('Please fill in all fields.', 'error');
+//             return;
+//         }
+        
+//         // Email validation
+//         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+//         if (!emailRegex.test(email)) {
+//             showNotification('Please enter a valid email address.', 'error');
+//             return;
+//         }
+        
+//         // Simulate form submission
+//         const submitButton = contactForm.querySelector('button[type="submit"]');
+//         const originalText = submitButton.textContent;
+//         submitButton.textContent = 'Sending...';
+//         submitButton.disabled = true;
+        
+//         setTimeout(() => {
+//             showNotification('Message sent successfully! I\'ll get back to you soon.', 'success');
+//             contactForm.reset();
+//             submitButton.textContent = originalText;
+//             submitButton.disabled = false;
+//         }, 2000);
+//     });
+// }
+
 // Contact Form Handling
 const contactForm = document.getElementById('contact-form');
+
 if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
+    contactForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         
         // Get form data
@@ -182,21 +224,42 @@ if (contactForm) {
             showNotification('Please enter a valid email address.', 'error');
             return;
         }
-        
-        // Simulate form submission
+
+        // Disable button + loading state
         const submitButton = contactForm.querySelector('button[type="submit"]');
         const originalText = submitButton.textContent;
         submitButton.textContent = 'Sending...';
         submitButton.disabled = true;
-        
-        setTimeout(() => {
-            showNotification('Message sent successfully! I\'ll get back to you soon.', 'success');
-            contactForm.reset();
-            submitButton.textContent = originalText;
-            submitButton.disabled = false;
-        }, 2000);
+
+        try {
+            // Send data to Vercel backend
+            const response = await fetch("https://porfolio-backend-rx98.onrender.com/api/contact/submit", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ name, email, subject, message })
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                showNotification("Message sent successfully! I'll get back to you soon.", "success");
+                contactForm.reset();
+            } else {
+                showNotification("Failed to send message. Try again later.", "error");
+            }
+        } catch (error) {
+            console.error("Error:", error);
+            showNotification("Server error! Please try again later.", "error");
+        }
+
+        // Restore button
+        submitButton.textContent = originalText;
+        submitButton.disabled = false;
     });
 }
+
 
 // Notification System
 function showNotification(message, type = 'info') {
