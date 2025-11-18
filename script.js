@@ -3,30 +3,68 @@ setInterval(() => {
 }, 5 * 60 * 1000);
 
 
+// Theme Toggle Functionality
+const themeToggle = document.getElementById('theme-toggle');
+const body = document.body;
+const knobIcon = themeToggle.querySelector('.knob-icon');
+
+// Initialize theme from localStorage or default to 'light'
+const saved = localStorage.getItem('theme');
+const initialTheme = saved === 'dark' ? 'dark' : 'light';
+body.setAttribute('data-theme', initialTheme);
+themeToggle.setAttribute('aria-pressed', initialTheme === 'dark' ? 'true' : 'false');
+
+// Set initial knob icon
+knobIcon.textContent = initialTheme === 'dark' ? '🌙' : '☀️';
+
+// Keep the visible state in sync if someone else changes data-theme
+const syncUI = () => {
+  const theme = body.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+  knobIcon.textContent = theme === 'dark' ? '🌙' : '☀️';
+  themeToggle.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false');
+};
+
+// Toggle handler
+themeToggle.addEventListener('click', () => {
+  const current = body.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+  const next = current === 'dark' ? 'light' : 'dark';
+
+  // Animate small press
+  themeToggle.style.transform = 'scale(0.96)';
+  setTimeout(() => (themeToggle.style.transform = ''), 140);
+
+  body.setAttribute('data-theme', next);
+  localStorage.setItem('theme', next);
+  syncUI();
+});
+
+// If page or other script changes theme attribute, listen for it
+// const observerr = new MutationObserver(() => syncUI());
+// observer.observe(body, { attributes: true, attributeFilter: ['data-theme'] });
 
 
 
 // Theme Toggle Functionality
-const themeToggle = document.getElementById('theme-toggle');
-const body = document.body;
+// const themeToggle = document.getElementById('theme-toggle');
+// const body = document.body;
 
 // Check for saved theme preference or default to 'light'
-const currentTheme = localStorage.getItem('theme') || 'light';
-body.setAttribute('data-theme', currentTheme);
+// const currentTheme = localStorage.getItem('theme') || 'light';
+// body.setAttribute('data-theme', currentTheme);
 
-themeToggle.addEventListener('click', () => {
-    const currentTheme = body.getAttribute('data-theme');
-    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+// themeToggle.addEventListener('click', () => {
+//     const currentTheme = body.getAttribute('data-theme');
+//     const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
     
-    body.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme', newTheme);
+//     body.setAttribute('data-theme', newTheme);
+//     localStorage.setItem('theme', newTheme);
     
-    // Add a subtle animation to the toggle
-    themeToggle.style.transform = 'scale(0.9)';
-    setTimeout(() => {
-        themeToggle.style.transform = 'scale(1)';
-    }, 150);
-});
+//     // Add a subtle animation to the toggle
+//     themeToggle.style.transform = 'scale(0.9)';
+//     setTimeout(() => {
+//         themeToggle.style.transform = 'scale(1)';
+//     }, 150);
+// });
 
 // Mobile Navigation Toggle
 const hamburger = document.querySelector('.hamburger');
@@ -240,7 +278,7 @@ if (contactForm) {
         submitButton.disabled = true;
 
         try {
-            // Send data to Vercel backend
+            
             const response = await fetch("https://porfolio-backend-rx98.onrender.com/api/contact/submit", {
                 method: "POST",
                 headers: {

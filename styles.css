@@ -1,4 +1,3 @@
-/* CSS Variables for Theme Switching */
 :root {
   /* Light Theme */
   --background: #cde6f3;
@@ -16,10 +15,20 @@
   --input: #f9fafb;
   --shadow: rgba(0, 0, 0, 0.1);
   --shadow-hover: rgba(0, 0, 0, 0.15);
+
+  /* Toggle specific */
+  --toggle-width: 60px;
+  --toggle-height: 30px;
+  --knob-size: 26px;
+  --track-light: var(--card);
+  --track-dark: #243447; /* used when dark */
+  --knob-bg-light: #ffffff;
+  --knob-bg-dark: #ffffff; /* keep white knob for contrast like images */
+  --track-border: var(--border);
 }
 
+/* Dark theme variables */
 [data-theme="dark"] {
-  /* Dark Theme */
   --background: #0f172a;
   --foreground: #e2e8f0;
   --card: #1e293b;
@@ -35,7 +44,169 @@
   --input: #1e293b;
   --shadow: rgba(0, 0, 0, 0.3);
   --shadow-hover: rgba(0, 0, 0, 0.4);
+
+  /* toggle specific override */
+  --track-light: #334155;
 }
+
+/* navbar dark background tweak (keeps your rule) */
+[data-theme="dark"] .navbar {
+  background: rgba(15, 23, 42, 0.95) !important;
+}
+
+/* Theme Toggle (track) */
+.theme-toggle {
+  --w: var(--toggle-width);
+  --h: var(--toggle-height);
+  position: relative;
+  width: var(--w);
+  height: var(--h);
+  padding: 2px;                       /* small padding so knob fits */
+  border-radius: 999px;
+  border: 1px solid var(--track-border);
+  background: var(--track-light);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  cursor: pointer;
+  transition: background 300ms ease, transform 160ms ease;
+  overflow: visible;
+}
+
+/* hover scale effect (keeps your hover) */
+.theme-toggle:hover {
+  transform: scale(1.03);
+}
+
+/* faint sun/moon at edges */
+.theme-toggle .sun-icon,
+.theme-toggle .moon-icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 14px;
+  pointer-events: none;
+  transition: opacity 220ms ease;
+  user-select: none;
+  line-height: 1;
+}
+
+/* left sun, right moon */
+.theme-toggle .sun-icon { left: 8px; }
+.theme-toggle .moon-icon { right: 8px; }
+
+/* reduced opacity of 'inactive' icons */
+[data-theme="dark"] .sun-icon { opacity: 0.25; }
+[data-theme="light"] .sun-icon { opacity: 1; }
+
+[data-theme="light"] .moon-icon { opacity: 0.25; }
+[data-theme="dark"] .moon-icon { opacity: 1; }
+
+/* the knob */
+.toggle-knob {
+  position: absolute;
+  top: 50%;
+  left: 2px;
+  transform: translate(0, -50%);
+  width: var(--knob-size);
+  height: var(--knob-size);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--knob-bg-light);
+  box-shadow: 0 2px 6px var(--shadow);
+  transition: transform 300ms cubic-bezier(.2,.9,.3,1), background 200ms ease, box-shadow 200ms ease;
+}
+
+/* knob icon (emoji) */
+.knob-icon {
+  display: inline-block;
+  font-size: 14px;
+  line-height: 1;
+  width: 100%;
+  text-align: center;
+  transform: translateY(0);
+  transition: transform 180ms ease, opacity 180ms ease;
+}
+
+/* when dark theme is active: move knob to right */
+[data-theme="dark"] .toggle-knob {
+  transform: translate(calc(var(--w) - var(--knob-size) - 4px), -50%);
+  /* optionally darken the track */
+  background: var(--track-light);
+}
+
+/* Optionally add a subtle inner ring in dark mode (like the moon outline) */
+[data-theme="dark"] .toggle-knob {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.45);
+}
+
+/* Accessibility focus styles */
+.theme-toggle:focus {
+  outline: 3px solid rgba(21, 128, 61, 0.12);
+  outline-offset: 3px;
+}
+
+/* Keep older rules for mobile menu etc. */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+/* small adjustments for very small screens (optional) */
+@media (max-width:420px){
+  :root { --toggle-width: 54px; --toggle-height: 28px; --knob-size: 24px; }
+  .theme-toggle .sun-icon, .theme-toggle .moon-icon { font-size: 12px; }
+  .knob-icon { font-size: 13px; }
+}
+
+
+
+
+/* CSS Variables for Theme Switching */
+/* Light Theme */
+/* :root {
+  
+  --background: #cde6f3;
+  --foreground: #475569;
+  --card: #75b7bba0;
+  --card-foreground: #164e63;
+  --primary: #164e63;
+  --primary-foreground: #ffffff;
+  --secondary: #d97706;
+  --secondary-foreground: #ffffff;
+  --muted: #f9fafb;
+  --muted-foreground: #475569;
+  --accent: #d97706;
+  --border: #e5e7eb;
+  --input: #f9fafb;
+  --shadow: rgba(0, 0, 0, 0.1);
+  --shadow-hover: rgba(0, 0, 0, 0.15);
+} */
+
+/* Dark Theme */
+
+/* [data-theme="dark"] {
+  
+  --background: #0f172a;
+  --foreground: #e2e8f0;
+  --card: #1e293b;
+  --card-foreground: #e2e8f0;
+  --primary: #0ea5e9;
+  --primary-foreground: #ffffff;
+  --secondary: #f59e0b;
+  --secondary-foreground: #ffffff;
+  --muted: #334155;
+  --muted-foreground: #94a3b8;
+  --accent: #f59e0b;
+  --border: #334155;
+  --input: #1e293b;
+  --shadow: rgba(0, 0, 0, 0.3);
+  --shadow-hover: rgba(0, 0, 0, 0.4);
+} */
 
 /* Reset and Base Styles */
 * {
@@ -74,9 +245,9 @@ body {
   transition: all 0.3s ease;
 }
 
-[data-theme="dark"] .navbar {
+/* [data-theme="dark"] .navbar {
   background: rgba(15, 23, 42, 0.95) !important;
-}
+} */
 
 .nav-container {
   max-width: 1200px;
@@ -130,7 +301,7 @@ body {
 }
 
 /* Theme Toggle */
-.theme-toggle {
+/* .theme-toggle {
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 50px;
@@ -161,7 +332,7 @@ body {
 [data-theme="light"] .moon-icon,
 :root .moon-icon {
   opacity: 0.3;
-}
+} */
 
 /* Mobile Menu */
 .hamburger {
@@ -694,6 +865,7 @@ section {
   }
   
   .hero-title {
+    padding-top: 25px;
     font-size: 2.5rem;
   }
   

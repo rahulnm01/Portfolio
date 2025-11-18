@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rahul Magaji - Portfolio</title>
+    <link rel="icon" type="image/png" href="./assets/logo.png" />
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
@@ -29,12 +30,31 @@
                 <li class="nav-item">
                     <a href="#contact" class="nav-link">Contact</a>
                 </li>
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
                         <span class="sun-icon">☀️</span>
                         <span class="moon-icon">🌙</span>
                     </button>
-                </li>
+                </li> -->
+                <li class="nav-item">
+  <button
+    class="theme-toggle"
+    id="theme-toggle"
+    aria-label="Toggle theme"
+    aria-pressed="false"
+    title="Toggle theme"
+  >
+    <!-- faint edge icons (decorative) -->
+    <span class="sun-icon" aria-hidden="true">☀️</span>
+    <span class="moon-icon" aria-hidden="true">🌙</span>
+
+    <!-- moving knob -->
+    <span class="toggle-knob" aria-hidden="true">
+      <span class="knob-icon">☀️</span>
+    </span>
+  </button>
+</li>
+
             </ul>
             <div class="hamburger">
                 <span class="bar"></span>
