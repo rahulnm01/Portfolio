@@ -2,7 +2,7 @@
   /* Light Theme */
   --background: #cde6f3;
   --foreground: #475569;
-  --card: #75b7bba0;
+  --card: #98c9cba0;
   --card-foreground: #164e63;
   --primary: #164e63;
   --primary-foreground: #ffffff;
@@ -684,6 +684,7 @@ section {
   color: var(--muted-foreground);
   margin-bottom: 1.5rem;
   line-height: 1.6;
+  text-align: justify;
 }
 
 .project-tags {
