@@ -88,8 +88,9 @@ body {
   /* Light Theme */
   --background: #cde6f3;
   --foreground: #475569;
-  --certcard: #cde6f3;
-  --card: #98c9cba0;
+  --phcard: rgba(156, 191, 212, 0.95);
+  --certcard: rgba(156, 191, 212, 0.95);
+  --card: rgba(156, 191, 212, 0.95);
   --card-foreground: #164e63;
   --primary: #164e63;
   --primary-foreground: #ffffff;
@@ -118,6 +119,7 @@ body {
 [data-theme="dark"] {
   --background: #0f172a;
   --foreground: #e2e8f0;
+  --phcard: #1e293b;
   --certcard: #0f172a;
   --card: #1e293b;
   --card-foreground: #e2e8f0;
@@ -531,7 +533,7 @@ body {
 }
 
 .floating-card {
-  background: var(--card);
+  background: var(--phcard);
   border-radius: 20px;
   padding: 2rem;
   box-shadow: 0 20px 40px var(--shadow);
@@ -849,7 +851,7 @@ section {
 
 /* Contact Form */
 .contact-form {
-  background: var(--background);
+  background: var(--certcard);
   padding: 2rem;
   border-radius: 15px;
   box-shadow: 0 10px 30px var(--shadow);
@@ -886,7 +888,7 @@ section {
 
 /* Footer */
 .footer {
-  background: var(--background);
+  background: var(--certcard);
   padding: 2rem 0;
   text-align: center;
   border-top: 1px solid var(--border);
