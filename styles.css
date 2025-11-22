@@ -88,6 +88,7 @@ body {
   /* Light Theme */
   --background: #cde6f3;
   --foreground: #475569;
+  --certcard: #cde6f3;
   --card: #98c9cba0;
   --card-foreground: #164e63;
   --primary: #164e63;
@@ -117,6 +118,7 @@ body {
 [data-theme="dark"] {
   --background: #0f172a;
   --foreground: #e2e8f0;
+  --certcard: #0f172a;
   --card: #1e293b;
   --card-foreground: #e2e8f0;
   --primary: #0ea5e9;
@@ -636,6 +638,7 @@ section {
   font-size: 1.1rem;
   line-height: 1.7;
   color: var(--muted-foreground);
+  text-align: justify;
 }
 
 .skills-grid {
@@ -883,7 +886,7 @@ section {
 
 /* Footer */
 .footer {
-  background: var(--card);
+  background: var(--background);
   padding: 2rem 0;
   text-align: center;
   border-top: 1px solid var(--border);
@@ -975,6 +978,11 @@ section {
     width: 200px;
   }
 }
+@media (max-width: 480px) {
+  .about-text p {
+    text-align: center;
+  }
+}
 
 @media (max-width: 480px) {
   .container {
@@ -1045,7 +1053,7 @@ section {
 }
 
 .certificate-card {
-  background: var(--card);
+  background: var(--certcard);
   border-radius: 15px;
   padding: 2rem;
   box-shadow: 0 10px 30px var(--shadow);
